@@ -18,7 +18,7 @@ class TaskFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence($nbWords = 3),
-            'description' => $this->faker->realText($maxNbChars = 50)
+            'description' => $this->faker->realText($maxNbChars = 50),
         ];
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Task;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function(){
+    $tasks = Task::all();
+    return view('tasks', ['tasks' => $tasks]);
 });
