@@ -16,17 +16,43 @@
 </head>
 
 <body class="mb-12">
-    <nav class="flex justify-between items-center py-4 bg-blue-400 mb-8">
-        <a href="/tasks/create" class="bg-black text-white py-2 px-5 ml-6 text-lg">Create Task</a>
-        <ul class="flex space-x-6 mr-6 text-lg">
-            <li>
-                <a href="register.html" class="hover:text-white"><i class="fa-solid fa-user-plus"></i> Register</a>
-            </li>
-            <li>
-                <a href="login.html" class="hover:text-white"><i class="fa-solid fa-arrow-right-to-bracket"></i>
-                    Login</a>
-            </li>
-        </ul>
+    <nav class="flex justify-between items-center py-8 bg-blue-400 mb-8">
+        <div>
+            <a href="/tasks/create" class="bg-black text-white py-2 px-5 ml-6 text-lg rounded">Create Task</a>
+            <a href="/" class="bg-black text-white py-2 px-5 ml-6 text-lg rounded">Home</a>
+        </div>
+        <div>
+            <ul class="flex space-x-6 mr-6 text-lg">
+
+                @auth
+                    {{-- Manage Tasks and User Info --}}
+                    <li>
+                        <span class="font-bold">Welcome <span class="text-white">{{ auth()->user()->name }}</span></span>
+                    </li>
+                    <li>
+                        <a href="/tasks/manage" class="hover:text-white"><i class="fa-solid fa-gear"></i>
+                            Manage Tasks</a>
+                    </li>
+                    <li>
+                        <form action="/logout" method="POST" class="inline">
+                            @csrf
+                            <button type="submit" class="hover:text-white">
+                                <i class="fa-solid fa-door-closed"></i> Logout
+                            </button>
+                        </form>
+                    </li>
+                @else
+                    <li>
+                        <a href="/register" class="hover:text-white"><i class="fa-solid fa-user-plus"></i> Register</a>
+                    </li>
+                    <li>
+                        <a href="/login" class="hover:text-white"><i class="fa-solid fa-arrow-right-to-bracket"></i>
+                            Login</a>
+                    </li>
+
+                @endauth
+            </ul>
+        </div>
     </nav>
     <main>
         {{ $slot }}

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,25 +22,42 @@ use App\Http\Controllers\TaskController;
 // store - Store new listing
 // edit - Show form to edit listing
 // update - Update listing
-// destroy - Delete listing  
+// destroy - Delete listing
+// register - Register User
+// login - Login User  
 
 // All tasks
 Route::get('/', [TaskController::class, 'index'])->name('tasks.index');
 
-// Show task form
-Route::get('/tasks/create', [TaskController::class, 'create']);
+// Show add task form
+Route::get('/tasks/create', [TaskController::class, 'create'])->middleware('auth');
 
 // Add task
-Route::post('/tasks', [TaskController::class, 'store']);
+Route::post('/tasks', [TaskController::class, 'store'])->middleware('auth');
 
 // Show edit form
-Route::get('/tasks/{task}/edit', [TaskController::class, 'edit']);
+Route::get('/tasks/{task}/edit', [TaskController::class, 'edit'])->middleware('auth');
 
 // Update task
-Route::put('/tasks/{task}', [TaskController::class, 'update']);
+Route::put('/tasks/{task}', [TaskController::class, 'update'])->middleware('auth');
 
 // Delete task
-Route::delete('/tasks/{task}', [TaskController::class, 'delete']);
+Route::delete('/tasks/{task}', [TaskController::class, 'delete'])->middleware('auth');
 
-// Single task
+// Get Single task
 Route::get('/tasks/{task}', [TaskController::class, 'show']);
+
+// Show register user form
+Route::get('/register', [UserController::class, 'register'])->middleware('guest');
+
+// Create new user
+Route::post('/users', [UserController::class, 'store']);
+
+// Show login user form
+Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
+
+// Login user
+Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+
+// Logout user
+Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
