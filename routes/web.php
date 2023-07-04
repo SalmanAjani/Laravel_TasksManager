@@ -35,6 +35,9 @@ Route::get('/tasks/create', [TaskController::class, 'create'])->middleware('auth
 // Add task
 Route::post('/tasks', [TaskController::class, 'store'])->middleware('auth');
 
+// Manage user tasks
+Route::get('/tasks/manage', [TaskController::class, 'manage'])->middleware('auth');
+
 // Show edit form
 Route::get('/tasks/{task}/edit', [TaskController::class, 'edit'])->middleware('auth');
 

@@ -54,6 +54,8 @@ class TaskController extends Controller
             'description' => 'required',
         ]);
 
+        $formFields['user_id'] = auth()->id();
+
         Task::create($formFields);
 
         return redirect('/')->with('message', 'Task created successfully!');
@@ -68,6 +70,10 @@ class TaskController extends Controller
     //Update task
     public function update(Request $request, Task $task)
     {
+        // Make sure logged in user is owner
+        if ($task->user_id != auth()->id()) {
+            return redirect('/')->with('message', 'Unauthorized action');
+        }
 
         $formFields = $request->validate([
             'title' => 'required',
@@ -84,7 +90,18 @@ class TaskController extends Controller
     //Delete task
     public function delete(Task $task)
     {
+        // Make sure logged in user is owner
+        if ($task->user_id != auth()->id()) {
+            return redirect('/')->with('message', 'Unauthorized action');
+        }
+
         $task->delete();
         return redirect('/')->with('message', 'Listing deleted successfully!');
+    }
+
+    // Manage task
+    public function manage()
+    {
+        return view('tasks.manage', ['tasks' => auth()->user()->tasks()->get()]);
     }
 }
