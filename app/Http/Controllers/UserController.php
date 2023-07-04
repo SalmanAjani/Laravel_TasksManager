@@ -31,7 +31,7 @@ class UserController extends Controller
 
         auth()->login($user);
 
-        return redirect('/')->with('message', 'User created and logged in!');
+        return redirect('/tasks')->with('message', 'User created and logged in!');
     }
 
     // Show login User Form
@@ -51,7 +51,7 @@ class UserController extends Controller
         if (auth()->attempt($formFields)) {
             $request->session()->regenerate();
 
-            return redirect('/')->with('message', 'Login successful');
+            return redirect('/tasks')->with('message', 'Login successful');
         }
 
         return back()->withErrors(['email' => 'Invalid Credentials'])->onlyInput('email');

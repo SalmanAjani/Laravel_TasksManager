@@ -15,7 +15,16 @@ class TaskController extends Controller
         $sort = $request->query('sort', 'desc');
         $query = $request->query('q');
 
+        $user = auth()->user();
+
         $tasks = Task::query();
+
+        if ($user->role == 1) {
+            // Admin user, fetch all tasks
+        } else {
+            // Regular user, fetch only their tasks
+            $tasks->where('user_id', $user->id);
+        }
 
         if ($filter === 'completed') {
             $tasks->where('completed', true);
@@ -33,6 +42,7 @@ class TaskController extends Controller
 
         return view('tasks.index', compact('tasks', 'filter'));
     }
+
 
     //Show single task
     public function show(Task $task)
@@ -58,7 +68,7 @@ class TaskController extends Controller
 
         Task::create($formFields);
 
-        return redirect('/')->with('message', 'Task created successfully!');
+        return redirect('/tasks')->with('message', 'Task created successfully!');
     }
 
     //Show edit form
@@ -70,11 +80,6 @@ class TaskController extends Controller
     //Update task
     public function update(Request $request, Task $task)
     {
-        // Make sure logged in user is owner
-        if ($task->user_id != auth()->id()) {
-            return redirect('/')->with('message', 'Unauthorized action');
-        }
-
         $formFields = $request->validate([
             'title' => 'required',
             'description' => 'required',
@@ -84,24 +89,19 @@ class TaskController extends Controller
 
         $task->update($formFields);
 
-        return redirect('/')->with('message', 'Task updated successfully!');
+        return redirect('/tasks')->with('message', 'Task updated successfully!');
     }
 
     //Delete task
     public function delete(Task $task)
     {
-        // Make sure logged in user is owner
-        if ($task->user_id != auth()->id()) {
-            return redirect('/')->with('message', 'Unauthorized action');
-        }
-
         $task->delete();
-        return redirect('/')->with('message', 'Listing deleted successfully!');
+        return redirect('/tasks')->with('message', 'Listing deleted successfully!');
     }
 
     // Manage task
-    public function manage()
-    {
-        return view('tasks.manage', ['tasks' => auth()->user()->tasks()->get()]);
-    }
+    // public function manage()
+    // {
+    //     return view('tasks.manage', ['tasks' => auth()->user()->tasks()->get()]);
+    // }
 }

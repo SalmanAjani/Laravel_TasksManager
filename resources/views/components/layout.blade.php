@@ -19,7 +19,11 @@
     <nav class="flex justify-between items-center py-8 bg-blue-400 mb-8">
         <div>
             <a href="/tasks/create" class="bg-black text-white py-2 px-5 ml-6 text-lg rounded">Create Task</a>
-            <a href="/" class="bg-black text-white py-2 px-5 ml-6 text-lg rounded">Home</a>
+            @auth
+                <a href="/tasks" class="bg-black text-white py-2 px-5 ml-6 text-lg rounded">Dashboard</a>
+            @else
+                <a href="/" class="bg-black text-white py-2 px-5 ml-6 text-lg rounded">Home</a>
+            @endauth
         </div>
         <div>
             <ul class="flex space-x-6 mr-6 text-lg">
@@ -29,10 +33,10 @@
                     <li>
                         <span class="font-bold">Welcome <span class="text-white">{{ auth()->user()->name }}</span></span>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="/tasks/manage" class="hover:text-white"><i class="fa-solid fa-gear"></i>
                             Manage Tasks</a>
-                    </li>
+                    </li> --}}
                     <li>
                         <form action="/logout" method="POST" class="inline">
                             @csrf

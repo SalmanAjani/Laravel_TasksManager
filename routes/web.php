@@ -26,8 +26,11 @@ use App\Http\Controllers\UserController;
 // register - Register User
 // login - Login User  
 
+// Home page
+Route::view('/', 'home');
+
 // All tasks
-Route::get('/', [TaskController::class, 'index'])->name('tasks.index');
+Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index')->middleware('auth');
 
 // Show add task form
 Route::get('/tasks/create', [TaskController::class, 'create'])->middleware('auth');
@@ -36,7 +39,7 @@ Route::get('/tasks/create', [TaskController::class, 'create'])->middleware('auth
 Route::post('/tasks', [TaskController::class, 'store'])->middleware('auth');
 
 // Manage user tasks
-Route::get('/tasks/manage', [TaskController::class, 'manage'])->middleware('auth');
+// Route::get('/tasks/manage', [TaskController::class, 'manage'])->middleware('auth');
 
 // Show edit form
 Route::get('/tasks/{task}/edit', [TaskController::class, 'edit'])->middleware('auth');
