@@ -15,4 +15,8 @@
             <p>No Tasks Found</p>
         @endunless
     </div>
+
+    <div class="mt-6 p-4 mx-6">
+        {{ $tasks->links() }}
+    </div>
 </x-layout>

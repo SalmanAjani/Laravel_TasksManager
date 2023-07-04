@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Task;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 
@@ -24,7 +23,20 @@ use App\Http\Controllers\TaskController;
 // update - Update listing
 // destroy - Delete listing  
 
-Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
-// Route::get('/tasks/search', [TaskController::class, 'search'])->name('tasks.search');
+// All tasks
+Route::get('/', [TaskController::class, 'index'])->name('tasks.index');
 
+// Show task form
+Route::get('/tasks/create', [TaskController::class, 'create']);
+
+// Add task
+Route::post('/tasks', [TaskController::class, 'store']);
+
+// Show edit form
+Route::get('/tasks/{task}/edit', [TaskController::class, 'edit']);
+
+// Update task
+Route::put('/tasks/{task}', [TaskController::class, 'update']);
+
+// Single task
 Route::get('/tasks/{task}', [TaskController::class, 'show']);

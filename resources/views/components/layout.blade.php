@@ -9,15 +9,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="//unpkg.com/alpinejs" defer></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <title>Tasks Manager</title>
 </head>
 
 <body class="mb-12">
     <nav class="flex justify-between items-center py-4 bg-blue-400 mb-8">
-        <a href="create.html" class="bg-black text-white py-2 px-5 ml-6 text-lg">Create Task</a>
+        <a href="/tasks/create" class="bg-black text-white py-2 px-5 ml-6 text-lg">Create Task</a>
         <ul class="flex space-x-6 mr-6 text-lg">
             <li>
                 <a href="register.html" class="hover:text-white"><i class="fa-solid fa-user-plus"></i> Register</a>
@@ -32,6 +32,7 @@
         {{ $slot }}
     </main>
 
+    <x-flash-message />
 </body>
 
 </html>
