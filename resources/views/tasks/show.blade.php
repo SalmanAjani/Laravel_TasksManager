@@ -4,6 +4,11 @@
         <a href="/tasks/{{ $task->id }}/edit">
             <i class="fa-solid fa-pencil"></i> Edit
         </a>
+        <form action="/tasks/{{ $task->id }}" method="POST" class="mt-4">
+            @csrf
+            @method('DELETE')
+            <button class="text-red-500"><i class="fa-solid fa-trash"></i> Delete</button>
+        </form>
     </div>
     <div
         class="flex flex-col items-center justify-center text-center bg-gray-50 border border-gray-200 rounded p-6 w-3/6 m-auto mt-16">
