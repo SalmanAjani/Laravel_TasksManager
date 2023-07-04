@@ -10,6 +10,7 @@
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <title>Tasks Manager</title>
 </head>
@@ -28,8 +29,7 @@
         </ul>
     </nav>
     <main>
-
-        @yield('content')
+        {{ $slot }}
     </main>
 
 </body>
