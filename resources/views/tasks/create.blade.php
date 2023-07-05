@@ -1,6 +1,6 @@
 <x-layout>
     <div>
-        <a href="/" class="text-2xl ml-16 border-1 bg-blue-400 text-white px-6 py-2 rounded">Back</a>
+        <a href="/tasks" class="text-xl ml-16 border-1 bg-blue-400 text-white px-6 py-2 rounded">Back</a>
     </div>
     <div class="bg-gray-50 border border-gray-200 p-10 rounded max-w-lg mx-auto mt-24">
 
