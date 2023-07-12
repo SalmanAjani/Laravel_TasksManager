@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Illuminate\Http\Request;
-use App\Mail\TaskNotification;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Mail;
+use App\Jobs\SendNewTaskNotification;
 
 class TaskController extends Controller
 {
@@ -68,11 +67,12 @@ class TaskController extends Controller
 
         $formFields['user_id'] = auth()->id();
 
-        $createdTask = Task::create($formFields);
-        $userName = auth()->user()->name;
+        $task = Task::create($formFields);
 
-        $adminEmail = env('ADMIN_EMAIL');
-        Mail::to($adminEmail)->send(new TaskNotification($createdTask, $userName));
+        $userEmail = auth()->user()->email;
+
+        // SendNewTaskNotification::dispatch($task);
+        SendNewTaskNotification::dispatch($task, $userEmail);
 
         return redirect('/tasks')->with('message', 'Task created successfully!');
     }

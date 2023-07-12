@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use App\Mail\NewUserWelcomeMail;
-use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -30,8 +28,6 @@ class UserController extends Controller
 
         //Create User
         $user = User::create($formFields);
-
-        Mail::to($user->email)->send(new NewUserWelcomeMail($user));
 
         auth()->login($user);
 
