@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Events\TaskCreatedEvent;
 use App\Jobs\SendNewTaskNotification;
+use Exception;
 
 class TaskController extends Controller
 {
@@ -71,8 +73,14 @@ class TaskController extends Controller
 
         $userEmail = auth()->user()->email;
 
-        // SendNewTaskNotification::dispatch($task);
+        // logger('controller');
+
         SendNewTaskNotification::dispatch($task, $userEmail);
+        // try {
+        //     event(new TaskCreatedEvent($task, $userEmail));
+        // } catch (Exception $e) {
+        //     logger($e);
+        // }
 
         return redirect('/tasks')->with('message', 'Task created successfully!');
     }

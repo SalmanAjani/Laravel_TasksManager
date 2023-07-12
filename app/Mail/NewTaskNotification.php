@@ -25,13 +25,6 @@ class NewTaskNotification extends Mailable
 
     public function build()
     {
-        // $fromEmail = auth()->user()->email;
-
-        // return $this
-        //     ->from($this->userEmail)
-        //     ->subject('New Task Created')
-        //     ->view('emails.new_task_notification');
-
         return $this
             ->from($this->fromEmail)
             ->subject('New Task Created')

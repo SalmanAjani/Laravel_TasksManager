@@ -29,14 +29,7 @@ class SendNewTaskNotification implements ShouldQueue
     public function handle(): void
     {
         $adminEmail = env('ADMIN_EMAIL');
-        // $userEmail = auth()->user()->email;
 
-        // Mail::to($adminEmail)
-        //     ->from($this->userEmail)
-        //     ->send(new NewTaskNotification($this->task));
-        // Mail::to($adminEmail)->send(new NewTaskNotification($this->task));
-
-        $adminEmail = env('ADMIN_EMAIL');
         Mail::to($adminEmail)
             ->send(new NewTaskNotification($this->task, $this->fromEmail));
     }
